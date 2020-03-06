@@ -237,8 +237,11 @@ int VerilatorJtagServer::init_jtag_server(int port)
 
 int VerilatorJtagServer::doJTAG(uint64_t t, uint8_t *tms, uint8_t *tdi, uint8_t *tck, uint8_t tdo)
 {
-	if (!cmd_in_progress)
-		check_for_command(&packet);
+	if (!cmd_in_progress) {
+		if (check_for_command(&packet) != 0) {
+			packet.cmd = 99;
+		}
+   	}
 
 	switch (jtag_state) {
 

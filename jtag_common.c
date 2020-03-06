@@ -35,8 +35,8 @@ int init_jtag_server(int port)
 	connfd = accept(listenfd, (struct sockaddr*)NULL, NULL);
 	printf("ok\n");
 
-	flags = fcntl(listenfd, F_GETFL, 0);
-	fcntl(listenfd, F_SETFL, flags | O_NONBLOCK);
+	flags = fcntl(connfd, F_GETFL, 0);
+	fcntl(connfd, F_SETFL, flags | O_NONBLOCK);
 
 	return 0;
 }
